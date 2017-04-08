@@ -3,14 +3,33 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="views/style.css" />
     <script type="text/javascript" src="vendors/angular.js"></script>
     <script type="text/javascript" src="scripts/client.js"></script>
 
     <title>Observertory</title>
   </head>
   <body>
-    <h1>Observertory</h1>
+    <div id="hOuterWrap">
+      <div id="hInnerWrap">
+        <h1>Observertory</h1>
+      </div>
+    </div>
+    <div id="searchForm" ng-controller="FirstController">
+      <input type="text" name="findMovie" ng-model="searchTitle">
+      <button type="button" name="findSubmit" ng-click="addMovie(searchTitle)">Search!</button>
+    </div>
+    <div class="buffer">
+    </div>
+    <div id="actualMovies" class="col-md-12 col-sm-12" ng-controller="SecondController">
+      <div id="searchResults" class="col-md-8 col-sm-8" ng-repeat="movie in movies">
+        <span class="glyphicon glyphicon-film"></span>
+        <h1>{{ movie.name }}</h1>
 
+      </div>
+      <div id="favorites" class="col-md-4 col-sm-4">
+
+      </div>
+    </div>
   </body>
 </html>

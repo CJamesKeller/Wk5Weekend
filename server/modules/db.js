@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var mongoURI = 'mongodb://localhost:27017/general';
+var mongoURI = "mongodb://firstOne:mlab1123@ds143030.mlab.com:43030/cjameskeller-first";
 var MongoDB = mongoose.connect(mongoURI).connection;
 
 MongoDB.on('error', function(err){

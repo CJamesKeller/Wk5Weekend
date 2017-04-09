@@ -24,7 +24,7 @@
         <h1 class="centerThis">Search Result:</h1>
         <div id="searchResult" ng-show="searchedMovie.exists" class="movieInfo">
           <span class="glyphicon glyphicon-film"></span>
-          <button type="button" class="glyphicon glyphicon-star-empty" ng-click="makeFavorite(searchedMovie)"></button>
+          <button type="button" title="click to add to favorites" class="glyphicon glyphicon-star-empty toAdd" ng-click="makeFavorite(searchedMovie)"></button>
           <img src="{{ searchedMovie.poster }}" class="posterImg">
           <h1>{{ searchedMovie.name }}</h1>
           <p><span class="movieInfoHeads">Directed by:</span>{{ searchedMovie.director }}</p>
@@ -39,7 +39,7 @@
         <h1 class="centerThis">Favorites:</h1>
           <div id="favorites" ng-repeat="thisMovie in starredMovies" class="extraDiv">
             <div class="movieInfo">
-              <button type="button" class="glyphicon glyphicon-star" ng-click="removeFavorite(thisMovie._id)"></button>
+              <button type="button" title="click the star to remove" class="glyphicon glyphicon-star toRemove" ng-click="removeFavorite(thisMovie._id)"></button>
               <img src="{{ thisMovie.poster }}" class="posterImg">
               <h1>{{ thisMovie.name }}</h1>
               <p><span class="movieInfoHeads">Directed by:</span>{{ thisMovie.director }}</p>

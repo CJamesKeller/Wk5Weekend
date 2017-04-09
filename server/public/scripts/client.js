@@ -17,7 +17,7 @@ myApp.factory("FirstFactory", ["$http", "$window", function($http, $window){
   var searchTitle = "";
   var searchedMovie = {};
   var getMovie = function(name){
-    $http.get("http://www.omdbapi.com/?t=" + name + "&y=&plot=full&r=json").then(function(response){
+    $http.get("https://www.omdbapi.com/?t=" + name + "&y=&plot=full&r=json").then(function(response){
       searchedMovie.name = response.data.Title;
       searchedMovie.director = response.data.Director;
       searchedMovie.genre = response.data.Genre;

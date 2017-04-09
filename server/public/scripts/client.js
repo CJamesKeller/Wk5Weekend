@@ -3,24 +3,21 @@ var myApp = angular.module("myApp", []);
 myApp.controller("FirstController", ["$scope", "FirstFactory", function($scope, FirstFactory){
   $scope.searchTitle = FirstFactory.searchTitle;
   $scope.getMovie = FirstFactory.getMovie;
-
 }]);
 
 myApp.controller("SecondController", ["$scope", "FirstFactory", function($scope, FirstFactory){
   $scope.searchedMovie = FirstFactory.searchedMovie;
   $scope.makeFavorite = FirstFactory.makeFavorite;
-  $scope.starredMovies = FirstFactory.favoriteMovies.starredMovies;
-
+  $scope.removeFavorite = FirstFactory.removeFavorite;
+  $scope.starredMovies = FirstFactory.starredMovies;
+  FirstFactory.getMyMovies();
 }]);
 
-myApp.factory("FirstFactory", ["$http", function($http){
+myApp.factory("FirstFactory", ["$http", "$window", function($http, $window){
   var searchTitle = "";
-
   var searchedMovie = {};
-
   var getMovie = function(name){
     $http.get("http://www.omdbapi.com/?t=" + name + "&y=&plot=full&r=json").then(function(response){
-      console.log(response);
       searchedMovie.name = response.data.Title;
       searchedMovie.director = response.data.Director;
       searchedMovie.genre = response.data.Genre;
@@ -33,20 +30,38 @@ myApp.factory("FirstFactory", ["$http", function($http){
       searchTitle = "";
     });
   };
-
-  var favoriteMovies = {
-    starredMovies: []
+  var starredMovies = [];
+  var getMyMovies = function(){
+    starredMovies.favorites = [];
+    $http.get("/movies/pull").then(function(response)
+    {
+      for(i = 0; i < response.data.length; i++)
+      {
+        starredMovies[i] = angular.copy(response.data[i]);
+      }
+    });
   };
-
   var makeFavorite = function(thisMovie){
-    favoriteMovies.starredMovies.push(thisMovie);
+    $http.post("/movies/add", thisMovie).then(function()
+    {
+      getMyMovies();
+    });
   };
-
+  var removeFavorite = function(thisId){
+    var id = thisId;
+    $http.delete("/movies/delete/" + id).then(function()
+    {
+      getMyMovies();
+      //This does not refresh....
+    });
+  };
   return{
     searchTitle: searchTitle,
     searchedMovie: searchedMovie,
     getMovie: getMovie,
     makeFavorite: makeFavorite,
-    favoriteMovies: favoriteMovies,
+    getMyMovies: getMyMovies,
+    starredMovies: starredMovies,
+    removeFavorite: removeFavorite
   };
 }]);

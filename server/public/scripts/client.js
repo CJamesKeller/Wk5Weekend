@@ -32,27 +32,34 @@ myApp.factory("FirstFactory", ["$http", "$window", function($http, $window){
   };
   var starredMovies = [];
   var getMyMovies = function(){
-    starredMovies.favorites = [];
     $http.get("/movies/pull").then(function(response)
     {
-      for(i = 0; i < response.data.length; i++)
+      for(i = 0; i <= response.data.length; i++)
       {
-        starredMovies[i] = angular.copy(response.data[i]);
+        if(response.data[i])
+        {
+          starredMovies[i] = angular.copy(response.data[i]);
+        }
       }
     });
   };
   var makeFavorite = function(thisMovie){
-    $http.post("/movies/add", thisMovie).then(function()
-    {
-      getMyMovies();
-    });
+    $http.post("/movies/add", thisMovie).then(getMyMovies());
   };
   var removeFavorite = function(thisId){
     var id = thisId;
-    $http.delete("/movies/delete/" + id).then(function()
-    {
-      getMyMovies();
-      //This does not refresh....
+    starredMovies.pop();
+    $http.delete("/movies/delete/" + id).then(function(){
+      $http.get("/movies/pull").then(function(response)
+      {
+        for(i = 0; i < response.data.length; i++)
+        {
+          if(response.data[i])
+          {
+            starredMovies[i] = angular.copy(response.data[i]);
+          }
+        }
+      });
     });
   };
   return{

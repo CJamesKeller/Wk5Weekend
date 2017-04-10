@@ -1,13 +1,23 @@
 body{
   padding: 20px;
+  color: midnightBlue;
+  background-color: grey;
 }
 
 .borderThis{
-  border: 1px solid black;
+  border: 1px solid steelBlue;
 }
 
 .glyphicon{
   font-size: 30px;
+}
+
+.glyphicon-star-empty:hover{
+  color: darkGoldenRod;
+}
+
+.glyphicon-star:hover{
+  color: fireBrick;
 }
 
 .posterImg{
@@ -18,8 +28,8 @@ body{
 
 .movieInfo{
   padding: 10px;
-  border: 1px solid black;
-  background-color: azure;
+  border: 1px solid steelBlue;
+  background-color: white;
 }
 
 .movieInfoHeads{
@@ -36,5 +46,26 @@ body{
 }
 
 .extraDiv{
-  padding-bottom: 30px;
+  padding: 20px;
+}
+
+.padThis{
+  border: 2px solid steelBlue;
+  background-color: azure;
+}
+
+#hInnerWrap{
+  background-color: azure;
+}
+
+.outer{
+  background-color: white;
+}
+
+#actualMovies{
+  background-color: white;
+}
+
+#searchResult{
+  background-color: azure;
 }

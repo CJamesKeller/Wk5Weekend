@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 
 var db = require('./modules/db.js');
 
+//Routes
 var index = require('./routes/index.js');
 var movies = require('./routes/movies.js');
 

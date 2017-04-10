@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var mongoose = require("mongoose");
 
+//Schema for movies
 var movieSchema = mongoose.Schema({
   name: String,
   director: String,
@@ -16,6 +17,7 @@ var movieSchema = mongoose.Schema({
 
 var Movie = mongoose.model("movie", movieSchema, "movies");
 
+//POST
 router.post("/add", function(req, res)
 {
   var movie = new Movie({
@@ -38,7 +40,7 @@ router.post("/add", function(req, res)
     res.sendStatus(200);
   });
 });
-
+//GET
 router.get("/pull", function(req, res)
 {
   Movie.find({}, function(err, allMovies)
@@ -50,7 +52,7 @@ router.get("/pull", function(req, res)
     res.send(allMovies);
   });
 });
-
+//DELETE
 router.delete("/delete/:id", function(req, res)
 {
   var movieId = req.params.id;
